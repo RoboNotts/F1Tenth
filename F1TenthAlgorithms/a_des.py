@@ -1,16 +1,29 @@
 from numpy.typing import ArrayLike
 
-# desired acceleration
-def a_des(v_des: ArrayLike[float], v: ArrayLike[float], tau: float = 1) -> float:
-    '''
+def find_desired_acceleration(
+        currentVelocity_fix_mps: ArrayLike[float],
+        desiredVelocity_fix_mps: ArrayLike[float],
+        *,
+        tauTimeConstant_s: float = 1.0
+    ) -> float:
+    """
     Calculate the acceleration needed to reach the desired velocity.
 
     Parameters:
-        v_des : Desired velocity.
-        v : Current velocity.
-        tau : Time constant, i.e. the amount of time to reach velocity `v_des`.
+        currentVelocity_fix_mps:
+            Current velocity of the car in its own frame of reference,
+            measured in metres per second.
+        desiredVelocity_fix_mps:
+            Desired velocity of the car in its own frame of reference,
+            measured in metres per second.
+        tauTimeConstant_s:
+            The amount of seconds to reach the desired velocity
+            `desiredVelocity_fix_mps` (default 1.0).
 
     Returns:
-        a_des : Desired acceleration.
-    '''
-    return (v_des - v) / tau
+        desired_acceleration:
+            The acceleration in m/s^2 needed to reach velocity
+            `desiredVelocity_fix_mps` in `tauTimeConstant_s` seconds.
+    """
+    velocity_diff = desiredVelocity_fix_mps - currentVelocity_fix_mps
+    return velocity_diff / tauTimeConstant_s
