@@ -1,15 +1,22 @@
 import math
 
-def desired_steering_angle(psi_des, psi):
+
+def find_desired_steering_angle(
+        desiredHeading_fix_rad: float,
+        currentHeading_fix_rad: float) -> float:
     """
-    Calculates the desired steering angle based on the given equation.
+    Calculates the desired steering angle based on the heading error.
 
     Parameters:
-    psi_des (float): Desired heading angle
-    psi (float): Current heading angle
+        desiredHeading_fix_rad:
+            Desired heading angle,
+            measured in radians.
+         currentHeading_fix_rad:
+            Current heading angle,
+            measured in radians.
 
     Returns:
-    float: Steering angle alpha
+        desired steering angle:
+            the steering angle alpha measured in radians.
     """
-
-    return (math.pi / 4) * math.copysign(1, psi_des - psi)
+    return (math.pi / 4) * math.copysign(1, desiredHeading_fix_rad - currentHeading_fix_rad)
