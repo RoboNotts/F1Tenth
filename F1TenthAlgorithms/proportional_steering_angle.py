@@ -1,12 +1,12 @@
-def find_proportional_steering_angle_control(
+def find_proportional_control_steering_angle(
         *,
         k:int=1,
         desiredHeading_fix_rad:float,
         currentHeading_fix_rad:float
     ) -> float:
     """
-    Calculate the steering angle based on the difference between the desired heading
-    and the current heading, scaled by a proportional gain.
+    Calculate the steering angle based on the difference between the desired
+    heading and the current heading, scaled by a proportional gain.
 
     Parameters:
         k:
