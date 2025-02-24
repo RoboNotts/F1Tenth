@@ -1,0 +1,33 @@
+#! /bin/bash
+
+#
+#    @ File:        pre-commit
+#
+#    @ Brief:       Git Pre-Commit hook
+#
+#    @ Description: This script will run when "$ git commit" is ran. For the
+#                   commit to go through this script must exit with an exit
+#                   status of 0.
+#
+#    @ Date:        30/12/2023
+#
+
+set -e
+
+
+#----------------------- CHECKING BRANCH NAME IS VALID -----------------------#
+
+# Find local branch name
+local_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Set valid format in regex
+branch_regex="^NBS-[0-9]{2,4}_[A-Za-z0-9._-]+$"
+
+# Check if the branch name matches the defined regex
+if ! [[ $local_branch =~ $branch_regex ]]; then
+  echo "[ERR] Branch name is not valid"
+  echo "[...] Local Branch Name: ${local_branch}"
+  echo "[...]"
+  echo "[...] Branch Regex: ${branch_regex}"
+  exit 1
+fi

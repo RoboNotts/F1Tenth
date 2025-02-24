@@ -1,0 +1,63 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="YUZIV9H5qCx68vv7yo2v">
+    <mxGraphModel dx="1834" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-1" target="hcuDV3JnYLOxoHp9R1-w-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="80" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-2" target="hcuDV3JnYLOxoHp9R1-w-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-2" target="hcuDV3JnYLOxoHp9R1-w-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-2" value="is State in&lt;div&gt;shutdown?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-6" target="hcuDV3JnYLOxoHp9R1-w-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-6" value="Top Level State Machine&lt;div&gt;(Refer to relevant diaram)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="320" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-9" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-11" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="140" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-12" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-13" target="hcuDV3JnYLOxoHp9R1-w-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-13" value="Set State to IDLE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="160" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-16" target="hcuDV3JnYLOxoHp9R1-w-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-16" value="Check termination conditions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="400" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hcuDV3JnYLOxoHp9R1-w-17" target="hcuDV3JnYLOxoHp9R1-w-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="560" />
+              <mxPoint x="80" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hcuDV3JnYLOxoHp9R1-w-17" value="Watchdog timer algorithm" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="480" width="160" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
