@@ -1,0 +1,103 @@
+{
+  "Template_FILE": {
+    "prefix": "file_template_C++",
+    "body": [
+      "/*",
+      " *    @File:         ${TM_FILENAME}",
+      " *",
+      " *    @Brief:        ${1}",
+      " *",
+      " *    @Date:         ${CURRENT_DATE}/${CURRENT_MONTH}/${CURRENT_YEAR}",
+      " *",
+      " */",
+      "",
+      "/* Function Includes */",
+      "/* None */",
+      "",
+      "/* Structure Include */",
+      "/* None */",
+      "",
+      "/* Data include */",
+      "/* None */",
+      "",
+      "/* Generic Libraries */",
+      "#include \"GConst/GConst.h\"",
+      "",
+      "int ${TM_FILENAME_BASE}(${2})",
+      "{",
+      "  /* Declare local variables */",
+      "  /* None */",
+      "  ",
+      "  return GCONST_TRUE;",
+      "}",
+    ],
+    "description": "Brief Template for C"
+  },
+  "Template_HEADER": {
+    "prefix": "header_template_C++",
+    "body": [
+      "/*",
+      " *    @File:         ${TM_FILENAME}",
+      " *",
+      " *    @Brief:        ${1}",
+      " *",
+      " *    @Date:         ${CURRENT_DATE}/${CURRENT_MONTH}/${CURRENT_YEAR}",
+      " *",
+      " */",
+      "",
+      "#ifndef H_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H",
+      "#define H_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H",
+      "",
+      "#ifdef __cplusplus",
+      "extern \"C\" {",
+      "#endif",
+      "",
+      "/* Function Includes */",
+      "/* None */",
+      "",
+      "/* Structure Include */",
+      "/* None */",
+      "",
+      "/* Data include */",
+      "/* None */",
+      "",
+      "/* Generic Libraries */",
+      "/* None */",
+      "",
+      "${2}",
+      "",
+      "#ifdef __cplusplus",
+      "}",
+      "#endif",
+      "#endif /* H_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_H */"
+    ],
+    "description": "Brief Template for C"
+  },
+  "Switch": {
+    "prefix": "switch",
+    "body": [
+      "switch(${1})",
+      "{",
+      "case():",
+      "  break;",
+      "}"
+    ],
+    "description": "Swicth-Case Snippet"
+  },
+  "SectionHeader": {
+    "prefix": "section_header",
+    "body": [
+      "/* ------------------------------------------------------------------------ *",
+      " * ${1}",
+      " * ------------------------------------------------------------------------ */"
+    ],
+    "description": "Adds a section header to the file"
+  },
+  "SubSectionHeader": {
+    "prefix": "sub-section_header",
+    "body": [
+      "/* -------------------------- ${1} -------------------------- */"
+    ],
+    "description": "Adds a section header to the file"
+  }
+}
