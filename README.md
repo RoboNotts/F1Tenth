@@ -9,7 +9,7 @@ When you run the `SetUpDevelopmentEnvironment.sh` script, the up to date clang f
 
 Variables follow the camel case naming convention with the following format.
 
-`\<name\>_\<frame\>_\<unit\>`
+`<name>_<frame>_<unit>`
 
 Note: If one or more of tags is not required then it can be ommited from the variable. For example, if a vector is independent of a frame, a frame
 tag should not be included. (The obvious exception is the 'name' tag)
