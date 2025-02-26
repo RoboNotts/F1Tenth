@@ -1,0 +1,33 @@
+[0.551s] Invoking command in '/home/shailin-chavda/F1Tenth/src/simple_drive': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shailin-chavda/F1Tenth/build/simple_drive/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/simple_drive build --build-base /home/shailin-chavda/F1Tenth/build/simple_drive/build install --record /home/shailin-chavda/F1Tenth/build/simple_drive/install.log --single-version-externally-managed install_data
+[0.699s] running egg_info
+[0.699s] creating ../../build/simple_drive/simple_drive.egg-info
+[0.709s] writing ../../build/simple_drive/simple_drive.egg-info/PKG-INFO
+[0.709s] writing dependency_links to ../../build/simple_drive/simple_drive.egg-info/dependency_links.txt
+[0.709s] writing requirements to ../../build/simple_drive/simple_drive.egg-info/requires.txt
+[0.709s] writing top-level names to ../../build/simple_drive/simple_drive.egg-info/top_level.txt
+[0.709s] writing manifest file '../../build/simple_drive/simple_drive.egg-info/SOURCES.txt'
+[0.729s] reading manifest file '../../build/simple_drive/simple_drive.egg-info/SOURCES.txt'
+[0.729s] adding license file 'LICENSE'
+[0.729s] writing manifest file '../../build/simple_drive/simple_drive.egg-info/SOURCES.txt'
+[0.729s] running build
+[0.729s] running build_py
+[0.730s] creating /home/shailin-chavda/F1Tenth/build/simple_drive/build
+[0.730s] creating /home/shailin-chavda/F1Tenth/build/simple_drive/build/lib
+[0.730s] creating /home/shailin-chavda/F1Tenth/build/simple_drive/build/lib/simple_drive
+[0.730s] copying simple_drive/__init__.py -> /home/shailin-chavda/F1Tenth/build/simple_drive/build/lib/simple_drive
+[0.730s] running install
+[0.733s] running install_lib
+[0.743s] creating /home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages/simple_drive
+[0.743s] copying /home/shailin-chavda/F1Tenth/build/simple_drive/build/lib/simple_drive/__init__.py -> /home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages/simple_drive
+[0.743s] byte-compiling /home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages/simple_drive/__init__.py to __init__.cpython-312.pyc
+[0.743s] running install_data
+[0.744s] creating /home/shailin-chavda/F1Tenth/install/simple_drive/share/ament_index
+[0.744s] creating /home/shailin-chavda/F1Tenth/install/simple_drive/share/ament_index/resource_index
+[0.744s] creating /home/shailin-chavda/F1Tenth/install/simple_drive/share/ament_index/resource_index/packages
+[0.744s] copying resource/simple_drive -> /home/shailin-chavda/F1Tenth/install/simple_drive/share/ament_index/resource_index/packages
+[0.744s] copying package.xml -> /home/shailin-chavda/F1Tenth/install/simple_drive/share/simple_drive
+[0.744s] running install_egg_info
+[0.754s] Copying ../../build/simple_drive/simple_drive.egg-info to /home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages/simple_drive-0.0.0-py3.12.egg-info
+[0.755s] running install_scripts
+[0.824s] writing list of installed files to '/home/shailin-chavda/F1Tenth/build/simple_drive/install.log'
+[0.840s] Invoked command in '/home/shailin-chavda/F1Tenth/src/simple_drive' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/shailin-chavda/F1Tenth/build/simple_drive/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/shailin-chavda/F1Tenth/install/simple_drive/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/simple_drive build --build-base /home/shailin-chavda/F1Tenth/build/simple_drive/build install --record /home/shailin-chavda/F1Tenth/build/simple_drive/install.log --single-version-externally-managed install_data
