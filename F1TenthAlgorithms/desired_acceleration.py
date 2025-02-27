@@ -1,11 +1,12 @@
 from numpy.typing import ArrayLike
 
+
 def find_desired_acceleration(
         currentVelocity_fix_mps: ArrayLike[float],
         desiredVelocity_fix_mps: ArrayLike[float],
         *,
         tauTimeConstant_s: float = 1.0
-    ) -> float:
+) -> float:
     """
     Calculate the acceleration needed to reach the desired velocity.
 
