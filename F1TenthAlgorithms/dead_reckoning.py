@@ -16,7 +16,8 @@ def dead_reckoning(
         timeInterval_s: Total time interval for integration (seconds).
 
     Returns:
-        updatedPosition_fix_m: Updated location in the fixed coordinate frame (meters).
+        updatedPosition_fix_m:
+            Updated location in the fixed coordinate frame (meters).
     """
 
     # checking input position_fix_m (previous location)
