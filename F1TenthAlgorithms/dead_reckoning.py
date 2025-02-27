@@ -1,40 +1,34 @@
 import numpy as np
+from numpy.typing import ArrayLike
 
 
-def dead_reckoning(prev_location: np.ndarray,
-                   prev_velocity: np.ndarray,
-                   heading: float, total_time: float,
-                   body_frame: bool = False
-                   ) -> np.ndarray:
+def dead_reckoning(
+        position_fix_m: ArrayLike[float],
+        velocity_fix_mps: ArrayLike[float],
+        timeInterval_s: ArrayLike[float],
+) -> ArrayLike[float]:
     """
     Performs simple dead reckoning using Euler's method of integration.
 
     Parameters:
-        prev_location (np.ndarray): Previous (x, y) location in global coordinates.
-        prev_velocity (np.ndarray): Velocity vector (v_x, v_y) in the global frame,
-                                    OR (v_forward, v_lateral) in the body frame.
-        heading (float): Current heading angle (yaw) in radians.
-        total_time (float): Total time interval for integration.
-        body_frame (bool): If True, velocity is given in the body frame and must be rotated.
+        position_fix_m: Previous (x, y) location in the fixed coordinate frame (meters).
+        velocity_fix_mps: Velocity vector (v_x, v_y) in the fixed coordinate frame (meters per second).
+        timeInterval_s: Total time interval for integration (seconds).
 
     Returns:
-        np.ndarray: Estimated (x, y) position after total_time.
+        updatedPosition_fix_m: Updated location in the fixed coordinate frame (meters).
     """
 
-    prev_location = np.array(prev_location)
-    prev_velocity = np.array(prev_velocity)
+    # checking input position_fix_m (previous location)
+    position_fix_m = np.array(position_fix_m)
 
-    # Convert body-frame velocity to global frame if necessary
-    if body_frame:
-        rotation_matrix = np.array([
-            [np.cos(heading), -np.sin(heading)],
-            [np.sin(heading), np.cos(heading)]
-        ])
-        global_velocity = rotation_matrix @ prev_velocity  # Transform to global frame
-    else:
-        global_velocity = prev_velocity  # Already in global frame
+    # checking velocity_fix_mps
+    velocity_fix_mps = np.array(velocity_fix_mps)
+
+    # checking timeInterval_s (change in time)
+    timeInterval_s = np.array(timeInterval_s)
 
     # Apply Euler's method: new_position = prev_position + velocity * time
-    new_position = prev_location + total_time * global_velocity
+    updatedPosition_fix_m = position_fix_m + timeInterval_s * velocity_fix_mps
 
-    return new_position
+    return updatedPosition_fix_m
