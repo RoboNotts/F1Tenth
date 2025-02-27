@@ -1,0 +1,34 @@
+{
+    "Template_SourceCode": {
+        "prefix": "template_cmake_sourcecode",
+        "body": [
+            "# Set minimum required version of cmake",
+            "cmake_minimum_required(VERSION 3.5)",
+            "",
+            "# Set project name",
+            "project(${1:Enter_Project_Name})",
+            "",
+            "# Set C compiler",
+            "set(CMAKE_C_COMPILER gcc)",
+            "",
+            "# Set C++ compiler",
+            "set(CMAKE_CXX_COMPILER g++)",
+            "",
+            "# Set C standard",
+            "set(CMAKE_C_STANDARD 90)",
+            "",
+            "# Set Root Directory",
+            "set(${2:ROOT_DIRECTORY} ${3:Set_Root_Directory_to_Project})",
+            "",
+            "# Set relative directories within project",
+            "set(${4:Name_of_path} ${5:Relative_Path_ie_Modules/Models})",
+            "",
+            "# Directories to be included in scripts",
+            "include_directories(${6:Include_Directories})",
+            "",
+            "# Add subdirectories which contain CMakeLists.txt file",
+            "add_subdirectory(${7:Directory_to_files})",
+            ""
+        ]
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "Template": {
+    "prefix": "template_python",
+    "body": [
+      "'''",
+      "  @File:      ${TM_FILENAME}",
+      "",
+      "  @Brief:     ${1}",
+      "",
+      "'''",
+      "",
+      "# Regular module imports",
+      "",
+      "# Custom file imports",
+      "",
+    ],
+    "description": "Brief Template for Python"
+  }
+}
