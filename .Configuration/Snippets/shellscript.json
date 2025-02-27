@@ -1,0 +1,21 @@
+{
+	"Template": {
+		"prefix": "file_template_sh",
+		"body": [
+			"#! /bin/bash",
+			"",
+			"#",
+			"#    @ File:        ${1}",
+			"#",
+			"#    @ Brief:       ",
+			"#",
+			"#    @ Description: ",
+			"#",
+			"#    @ Date: ",
+			"#",
+			"",
+			"set -e"
+		],
+		"description": "Brief Template for Shell Script"
+	}
+}
