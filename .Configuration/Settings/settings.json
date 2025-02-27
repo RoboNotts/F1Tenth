@@ -1,0 +1,13 @@
+{
+  "editor.rulers": [
+    80
+  ],
+  "editor.formatOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "autopep8.args": [
+    "--indent-size=4",
+    "--ignore=E121",
+  ]
+}
