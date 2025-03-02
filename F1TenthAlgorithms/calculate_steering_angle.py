@@ -1,22 +1,30 @@
 import math
 
-def proportional_steering_angle(*, k: int = 1, heading_des: float, heading_curr: float) -> float: ...
-
-def fixed_steering_angle(*, heading_des: float, heading_curr: float) -> float: ...
-
-def dynamic_steering_angle(*, k: int = 1, heading_des: float, heading_curr: float) -> float:
+def find_desired_steering_angle_dynamic(
+        desiredHeading_fix_rad: float,
+        currentHeading_fix_rad: float,
+        k: int = 1) -> float:
     """
-    Calculate the steering angle dynamically by using either proportional or fixed steering
+    Calculates the desired steering angle dynamically by using either proportional or fixed steering
     based on the heading error.
 
-    :param k: The proportional gain (int). Default is 1.
-    :param heading_des: The desired heading in radians (float).
-    :param heading_curr: The current heading in radians (float).
-    :return: The steering angle in radians (float).
+    Parameters:
+        k:
+            The proportional gain (int). Default is 1.
+
+        desiredHeading_fix_rad:
+            Desired heading angle measured in radians.
+
+        currentHeading_fix_rad:
+            Current heading angle measured in radians.
+
+    Returns:
+        desired steering angle:
+            the steering angle alpha measured in radians.
     """
-    error = heading_des - heading_curr
+    error = desiredHeading_fix_rad - currentHeading_fix_rad
 
     if abs(error) <= math.pi/4:
-        return proportional_steering_angle(k=k, heading_des=heading_des, heading_curr=heading_curr)
+        return proportional_steering_angle(k, desiredHeading_fix_rad, currentHeading_fix_rad)
     else:
-        return fixed_steering_angle(heading_des=heading_des, heading_curr=heading_curr)
+        return fixed_steering_angle(desiredHeading_fix_rad, currentHeading_fix_rad)
