@@ -8,6 +8,9 @@ def find_desired_steering_angle_dynamic(
     Calculates the desired steering angle dynamically by using either proportional or fixed steering
     based on the heading error.
 
+    Both input headings must be in the same reference frame. The output steering angle will be in
+    the body frame (bod).
+
     Parameters:
         k:
             The proportional gain (int). Default is 1.
@@ -25,6 +28,8 @@ def find_desired_steering_angle_dynamic(
     error = desiredHeading_fix_rad - currentHeading_fix_rad
 
     if abs(error) <= math.pi/4:
-        return proportional_steering_angle(k, desiredHeading_fix_rad, currentHeading_fix_rad)
+        steeringAngle_bod_rad = proportional_steering_angle(k, desiredHeading_fix_rad, currentHeading_fix_rad)
     else:
-        return fixed_steering_angle(desiredHeading_fix_rad, currentHeading_fix_rad)
+        steeringAngle_bod_rad = fixed_steering_angle(desiredHeading_fix_rad, currentHeading_fix_rad)
+
+    return steeringAngle_bod_rad
