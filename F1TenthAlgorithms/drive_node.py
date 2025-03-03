@@ -43,9 +43,10 @@ class DriveNode(Node):
                 Desired speed in meters per second (default 0.0).
             desiredSteeringAngleVelocity_radps:
                 Desired rate of change of the steering angle in radians
-                per second (default None, not used if None).
+                per second (Optional. Default None, not used if None).
             desiredJerk_mps3:
-                Desired rate of change of acceleration in meters per second cubed.
+                Desired rate of change of acceleration in meters per second cubed
+                (Optional. Default None, not used if None).
 
         Returns:
             None
