@@ -23,7 +23,7 @@ class Navigation(Node):
     Navigation node for Simple Drive Mode
 
     Topics subscribed to:
-        /egoracecar/odom:
+        /ego_racecar/odom:
             Odometry
 
     Topics published to: TODO: Integrate with other code [F1T-16]
@@ -36,7 +36,7 @@ class Navigation(Node):
 
         # Create subscriber
         self.odometrySubscriber = self.create_subscription(
-            Odometry, "/egoracecar/odom",
+            Odometry, "/ego_racecar/odom",
             self.ego_odometry_callback, 10
         )
         # TODO: Integrate with other tickets (Take in target position) [F1T-16]
@@ -51,7 +51,7 @@ class Navigation(Node):
 
         Parameters:
             msg:
-                Odometry message coming from /egoracecar/odom topic
+                Odometry message coming from /ego_racecar/odom topic
 
         Returns:
             None:
