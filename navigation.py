@@ -11,7 +11,8 @@ from tf_transformations import euler_from_quaternion
 
 class Navigation(Node):
     """
-    Navigation node for Simple Drive Mode #TODO: May instead have all of SDM as one node
+    Navigation node for Simple Drive Mode
+    #TODO: May instead have all of SDM as one node
 
     Subscribes to odometry,
     Calculates desired heading, steering angle, and velocity, given the target
@@ -22,17 +23,25 @@ class Navigation(Node):
 
         # Create subscriber
         self.odometrySubscriber = self.create_subscription(
-            Odometry, 'odom',
-            self.listener_callback, 10
+            Odometry, "/egoracecar/odom",
+            self.ego_odometry_callback, 10
         )
         # TODO: Integrate with other tickets (Take in target position) [F1T-16]
         self.targetPosition_fix_m = [10, 10]
         self.currentPosition_fix_m = None
 
-    def listener_callback(self, msg: Odometry):
+    def ego_odometry_callback(self, msg: Odometry):
         """
-        Processes Odometry data
-        Calculates the desired heading, steering angle, and velocity
+        Processes Odometry data:
+            Calculates the desired heading, steering angle, and velocity based \
+            on the race car's current position and the target position.
+
+        Parameters:
+            msg:
+                Odometry message coming from /egoracecar/odom topic
+
+        Returns:
+            None:
         """
         self.currentPosition_fix_m = np.array([
             msg.pose.pose.position.x,
