@@ -1,30 +1,12 @@
-import rclpy
-import math  # TEMP
 import numpy as np
-from rclpy.node import Node
-from nav_msgs.msg import Odometry
 from F1TenthAlgorithms.desired_acceleration import find_desired_acceleration
 from F1TenthAlgorithms.desired_heading import find_desired_heading
 from F1TenthAlgorithms.proportional_steering_angle import find_proportional_control_steering_angle
+from F1TenthAlgorithms.desired_velocity import find_desired_velocity
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
-from geometry_msgs.msg import Pose, Twist
-
-# N.B I'm still waiting on desired_velocity function to be merged into the main branch
-# TEMPORARY VELOCITY FUNCTION:
-
-
-def find_desired_velocity(
-        desired_x_position_m, current_x_position_m,
-        desired_y_position_m, current_y_position_m,
-        time_to_go_s, maximum_velocity_ms
-):
-    return min(
-        math.sqrt(
-            (desired_x_position_m - current_x_position_m)**2 +
-            (desired_y_position_m - current_y_position_m)**2
-        ) / time_to_go_s,
-        maximum_velocity_ms
-    )
 
 
 class Navigation(Node):
@@ -37,12 +19,13 @@ class Navigation(Node):
 
     def __init__(self):
         super().__init__('navigation')
+
         # Create subscriber
         self.odometrySubscriber = self.create_subscription(
             Odometry, 'odom',
             self.listener_callback, 10
         )
-        # TODO: Integrate with other tickets (Take in target position)
+        # TODO: Integrate with other tickets (Take in target position) [F1T-16]
         self.targetPosition_fix_m = [10, 10]
         self.currentPosition_fix_m = None
 
@@ -89,15 +72,11 @@ class Navigation(Node):
             self.desiredVelocity_ego_mps
         )
 
-        # TODO: Integrate with other tickets (publish to /AckermannDriveStamped)
+        # TODO: Integrate with other tickets (publish to /AckermannDriveStamped) [F1T-16]
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    navigation = Navigation()
-    rclpy.spin(navigation)
-    navigation.destroy_node()
-    rclpy.shutdown()
+    pass
 
 
 if __name__ == '__main__':
