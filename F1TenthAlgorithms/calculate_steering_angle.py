@@ -22,7 +22,7 @@ def find_desired_steering_angle_dynamic(
             Current heading angle measured in radians.
 
     Returns:
-        desired steering angle:
+        steeringAngle_bod_rad:
             the steering angle alpha measured in radians.
     """
     error = desiredHeading_fix_rad - currentHeading_fix_rad
