@@ -27,14 +27,14 @@ class Navigation(Node):
             self.ego_odometry_callback, 10
         )
         # TODO: Integrate with other tickets (Take in target position) [F1T-16]
-        self.targetPosition_fix_m = [10, 10]
+        self.targetPosition_fix_m = [10, 10]  # Placeholder
         self.currentPosition_fix_m = None
 
     def ego_odometry_callback(self, msg: Odometry):
         """
         Processes Odometry data:
-            Calculates the desired heading, steering angle, and velocity based \
-            on the race car's current position and the target position.
+            Calculates the desired heading, steering angle, and velocity based\
+            on the race car's current position to reach the target position.
 
         Parameters:
             msg:
@@ -43,17 +43,22 @@ class Navigation(Node):
         Returns:
             None:
         """
+        # Update current position using the values in msg.
         self.currentPosition_fix_m = np.array([
-            msg.pose.pose.position.x,
-            msg.pose.pose.position.y
+            msg.pose.pose.position.x, msg.pose.pose.position.y
         ])
+
+        # Update current velocities using the values in msg.
         self.currentLinearVelocity_fix_mps = msg.twist.twist.linear.x
         self.currentAngularVelocity_fix_radps = msg.twist.twist.angular.z
 
+        # Update current orientation using the values in msg.
+        # Convert from quaternion to euler angles [roll, pitch, yaw]
         self.currentOrientation_fix_rad = np.array(
             euler_from_quaternion(msg.pose.pose.orientation)
         )
 
+        # Calculate the desired heading
         self.desiredHeading_fix = find_desired_heading(
             self.currentPosition_fix_m[0],
             self.currentPosition_fix_m[1],
@@ -61,12 +66,14 @@ class Navigation(Node):
             self.targetPosition_fix_m[1]
         )
 
+        # Calculate the desired steering angle
         self.desiredSteeringAngle_ego_rad = find_proportional_control_steering_angle(
             0.5,
             self.desiredHeading_fix,
-            # TODO: Confirm that yaw is the correct orientation
-            self.currentOrientation_fix_rad[2])
+            self.currentOrientation_fix_rad[2]  # [2] refers to yaw
+        )
 
+        # Calculate the desired velocity
         self.desiredVelocity_ego_mps = find_desired_velocity(
             self.targetPosition_fix_m[0],
             self.currentPosition_fix_m[0],
@@ -76,6 +83,7 @@ class Navigation(Node):
             2
         )
 
+        # Calculate the desired acceleration
         self.desiredAcceleration = find_desired_acceleration(
             self.currentLinearVelocity_fix_mps,
             self.desiredVelocity_ego_mps
