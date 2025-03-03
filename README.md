@@ -20,6 +20,14 @@ Note: These conventions were introduced after the start of development and hence
 
 This is the name of the variable. Generally, it should contain at least 2 descriptive words, although there may be exceptions to having 1. The purpose is to make it easy to identify what the variable represents.
 
+#### exception ####
+
+All subscriber callback functions require a parameter for the message that the subscriber receieves from the topic they've subscribed to. We will call this parameter 'msg' (a ROS convention) and use a type hint to show what type of ROS2 message it is.
+
+For example, if we are subscribed to an Odometry message, the callback function will be `<callback_function>(msg: Odometry)` (Make sure to import the object type from a ros msg package like: `from nav_msgs.msg import Odometry`)
+
+The doxygen comment should then explain what msg is and what topic it is subscribed to.
+
 
 ### frame ###
 
