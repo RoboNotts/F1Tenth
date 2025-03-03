@@ -1,21 +1,34 @@
+# Built in Imports
 import numpy as np
-from F1TenthAlgorithms.desired_acceleration import find_desired_acceleration
-from F1TenthAlgorithms.desired_heading import find_desired_heading
-from F1TenthAlgorithms.proportional_steering_angle import find_proportional_control_steering_angle
-from F1TenthAlgorithms.desired_velocity import find_desired_velocity
+
+# Custom library imports
+from F1TenthAlgorithms import find_desired_acceleration, find_desired_heading, \
+    find_desired_velocity, find_proportional_control_steering_angle
+
+# ROS imports
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 
+# Global Variables
+# None
+
 
 class Navigation(Node):
     """
-    Navigation node for Simple Drive Mode
-    #TODO: May instead have all of SDM as one node
+    #TODO: Navigation functionality should probably be part of \
+    # one entire SDM node [F1T-16]
 
-    Subscribes to odometry,
-    Calculates desired heading, steering angle, and velocity, given the target
+    Navigation node for Simple Drive Mode
+
+    Topics subscribed to:
+        /egoracecar/odom:
+            Odometry
+
+    Topics published to: TODO: Integrate with other code [F1T-16]
+        <topicName>:
+                  <messageType>
     """
 
     def __init__(self):
@@ -93,7 +106,13 @@ class Navigation(Node):
 
 
 def main(args=None):
-    pass
+    rclpy.init(args=args)
+    node = Navigation()
+    rclpy.spin(node)
+
+    # Destroy the node explicitly
+    node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':
