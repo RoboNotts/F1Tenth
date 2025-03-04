@@ -54,37 +54,59 @@ class SDM_Navigator(Node):
             10
         )
 
-    def odom_callback(self, msg: Odometry):
-        posePos_fix_m = msg.pose.pose.position
-        currentPos_fix_m = [posePos_fix_m.x, posePos_fix_m.y]
-        targetPos_fix_m = self.target_pos_fix
+    def odom_callback(self, msg: Odometry) -> None:
+        """
+        Callback function for odometry message callback.
 
+        Calculates new driving instructions and publishes them to `/drive`.
+
+        Parameters:
+            msg:
+                The car's odometry message received by the subscription.
+        """
+
+        # extract pose position and orientation from odometry message
+        posePos_fix_m = msg.pose.pose.position
         orientation_fix_rad = msg.pose.pose.orientation
+
+        # get target position
+        targetPos_fix_m = self.targetPos_fix_m
+
+        # convert pose position into a list for easier readability when used
+        # alongside `targetPos_fix_m`.
+        currentPos_fix_m = [posePos_fix_m.x, posePos_fix_m.y]
+
+        # get heading (yaw) from orientation quaternion
         (_, currentHeading_fix_rad, _) = euler_from_quaternion(
             orientation_fix_rad
         )
 
-        vDesired_fix_mps = desired_velocity(
+        # calculate desired velocity
+        velocityDesired_fix_mps = desired_velocity(
             currentPos_fix_m[0], currentPos_fix_m[1],
             targetPos_fix_m[0], targetPos_fix_m[1],
             10,
             100
         )
 
+        # calculate desired heading angle
         headingDesired_fix_rad = find_desired_heading(
             currentPos_fix_m[0], currentPos_fix_m[1],
             targetPos_fix_m[0], targetPos_fix_m[1],
         )
 
+        # calculate desired steering angle using desired and current headings
         angleDesired_fix_rad = find_desired_steering_angle(
             headingDesired_fix_rad,
             currentHeading_fix_rad
         )
 
+        # create a new message using the desired values calculated
         drive_msg_output = AckermannDriveStamped()
-        drive_msg_output.drive.speed = vDesired_fix_mps
+        drive_msg_output.drive.speed = velocityDesired_fix_mps
         drive_msg_output.drive.steering_angle = angleDesired_fix_rad
 
+        # publish the new message
         self.drive_publisher.publish(drive_msg_output)
 
 
