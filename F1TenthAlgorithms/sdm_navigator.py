@@ -39,7 +39,7 @@ class SDM_Navigator(Node):
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
         # calls `odom_callback` function when a value is published
-        self.odom_subscription = self.create_subscription(
+        self.odomSubscription = self.create_subscription(
             Odometry,
             '/ego_racecar/odom',
             self.odom_callback,
@@ -48,26 +48,26 @@ class SDM_Navigator(Node):
 
         # create publisher to send driving instructions to the car
         # via the `/drive` topic
-        self.drive_publisher = self.create_publisher(
+        self.drivePublisher = self.create_publisher(
             AckermannDriveStamped,
             '/drive',
             10
         )
 
-    def odom_callback(self, msg: Odometry) -> None:
+    def odom_callback(self, odomMessage: Odometry) -> None:
         """
         Callback function for odometry message callback.
 
         Calculates new driving instructions and publishes them to `/drive`.
 
         Parameters:
-            msg:
+            odomMessage:
                 The car's odometry message received by the subscription.
         """
 
         # extract pose position and orientation from odometry message
-        posePos_fix_m = msg.pose.pose.position
-        orientation_fix_rad = msg.pose.pose.orientation
+        posePos_fix_m = odomMessage.pose.pose.position
+        orientation_fix_rad = odomMessage.pose.pose.orientation
 
         # get target position
         targetPos_fix_m = self.targetPos_fix_m
@@ -101,13 +101,13 @@ class SDM_Navigator(Node):
             currentHeading_fix_rad
         )
 
-        # create a new message using the desired values calculated
-        drive_msg_output = AckermannDriveStamped()
-        drive_msg_output.drive.speed = velocityDesired_fix_mps
-        drive_msg_output.drive.steering_angle = angleDesired_fix_rad
+        # create a drive message using the desired values calculated
+        driveMsg = AckermannDriveStamped()
+        driveMsg.drive.speed = velocityDesired_fix_mps
+        driveMsg.drive.steering_angle = angleDesired_fix_rad
 
-        # publish the new message
-        self.drive_publisher.publish(drive_msg_output)
+        # publish the new drive message
+        self.drivePublisher.publish(driveMsg)
 
 
 def main(args=None):
