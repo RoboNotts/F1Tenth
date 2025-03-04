@@ -23,17 +23,22 @@ class SDM_Navigator(Node):
     Simple drive mode navigator.
 
     Topics subscribed to:
-        /ego_racecar/odom
+        /ego_racecar/odom:
+            nav_msgs/msg/Odometry
 
     Topics published to:
-        /drive
+        /drive:
+            ackermann_msgs/msg/AckermannDriveStamped
     """
 
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.target_pos_fix = [5, 5]  # TODO
+        self.targetPos_fix_m = [5, 5]  # TODO
 
+        # subscription to receive the car's odometry data from the
+        # `/ego_racecar/odom` topic
+        # calls `odom_callback` function when a value is published
         self.odom_subscription = self.create_subscription(
             Odometry,
             '/ego_racecar/odom',
@@ -41,6 +46,8 @@ class SDM_Navigator(Node):
             10
         )
 
+        # create publisher to send driving instructions to the car
+        # via the `/drive` topic
         self.drive_publisher = self.create_publisher(
             AckermannDriveStamped,
             '/drive',
@@ -48,32 +55,35 @@ class SDM_Navigator(Node):
         )
 
     def odom_callback(self, msg: Odometry):
-        pose_pos = msg.pose.pose.position
-        current_pos = [pose_pos.x, pose_pos.y]
-        target_pos = self.target_pos_fix
+        posePos_fix_m = msg.pose.pose.position
+        currentPos_fix_m = [posePos_fix_m.x, posePos_fix_m.y]
+        targetPos_fix_m = self.target_pos_fix
 
-        orientation = msg.pose.pose.orientation
-        (_, current_heading, _) = euler_from_quaternion(orientation)
-
-        v_desired = desired_velocity(
-            current_pos[0], current_pos[1],
-            target_pos[0], target_pos[1],
-            10, 100
+        orientation_fix_rad = msg.pose.pose.orientation
+        (_, currentHeading_fix_rad, _) = euler_from_quaternion(
+            orientation_fix_rad
         )
 
-        heading_desired = find_desired_heading(
-            current_pos[0], current_pos[1],
-            target_pos[0], target_pos[1],
+        vDesired_fix_mps = desired_velocity(
+            currentPos_fix_m[0], currentPos_fix_m[1],
+            targetPos_fix_m[0], targetPos_fix_m[1],
+            10,
+            100
         )
 
-        angle_desired = find_desired_steering_angle(
-            heading_desired,
-            current_heading
+        headingDesired_fix_rad = find_desired_heading(
+            currentPos_fix_m[0], currentPos_fix_m[1],
+            targetPos_fix_m[0], targetPos_fix_m[1],
+        )
+
+        angleDesired_fix_rad = find_desired_steering_angle(
+            headingDesired_fix_rad,
+            currentHeading_fix_rad
         )
 
         drive_msg_output = AckermannDriveStamped()
-        drive_msg_output.drive.speed = v_desired
-        drive_msg_output.drive.steering_angle = angle_desired
+        drive_msg_output.drive.speed = vDesired_fix_mps
+        drive_msg_output.drive.steering_angle = angleDesired_fix_rad
 
         self.drive_publisher.publish(drive_msg_output)
 
