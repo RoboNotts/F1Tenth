@@ -34,7 +34,7 @@ class SDM_Navigator(Node):
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.targetPos_fix_m = [5, 5]  # TODO
+        self.targetPos_Fix_m = [5, 5]  # TODO
 
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
@@ -66,45 +66,45 @@ class SDM_Navigator(Node):
         """
 
         # extract pose position and orientation from odometry message
-        posePos_fix_m = odomMessage.pose.pose.position
-        orientation_fix_rad = odomMessage.pose.pose.orientation
+        posePos_Fix_m = odomMessage.pose.pose.position
+        orientation_Fix_rad = odomMessage.pose.pose.orientation
 
         # get target position
-        targetPos_fix_m = self.targetPos_fix_m
+        targetPos_Fix_m = self.targetPos_Fix_m
 
         # convert pose position into a list for easier readability when used
-        # alongside `targetPos_fix_m`.
-        currentPos_fix_m = [posePos_fix_m.x, posePos_fix_m.y]
+        # alongside `targetPos_Fix_m`.
+        currentPos_Fix_m = [posePos_Fix_m.x, posePos_Fix_m.y]
 
         # get heading (yaw) from orientation quaternion
-        (_, currentHeading_fix_rad, _) = euler_from_quaternion(
-            orientation_fix_rad
+        (_, currentHeading_Fix_rad, _) = euler_from_quaternion(
+            orientation_Fix_rad
         )
 
         # calculate desired velocity
-        velocityDesired_fix_mps = desired_velocity(
-            currentPos_fix_m[0], currentPos_fix_m[1],
-            targetPos_fix_m[0], targetPos_fix_m[1],
+        velocityDesired_Fix_mps = desired_velocity(
+            currentPos_Fix_m[0], currentPos_Fix_m[1],
+            targetPos_Fix_m[0], targetPos_Fix_m[1],
             10,
             100
         )
 
         # calculate desired heading angle
-        headingDesired_fix_rad = find_desired_heading(
-            currentPos_fix_m[0], currentPos_fix_m[1],
-            targetPos_fix_m[0], targetPos_fix_m[1],
+        headingDesired_Fix_rad = find_desired_heading(
+            currentPos_Fix_m[0], currentPos_Fix_m[1],
+            targetPos_Fix_m[0], targetPos_Fix_m[1],
         )
 
         # calculate desired steering angle using desired and current headings
-        angleDesired_fix_rad = find_desired_steering_angle(
-            headingDesired_fix_rad,
-            currentHeading_fix_rad
+        angleDesired_Fix_rad = find_desired_steering_angle(
+            headingDesired_Fix_rad,
+            currentHeading_Fix_rad
         )
 
         # create a drive message using the desired values calculated
         driveMsg = AckermannDriveStamped()
-        driveMsg.drive.speed = velocityDesired_fix_mps
-        driveMsg.drive.steering_angle = angleDesired_fix_rad
+        driveMsg.drive.speed = velocityDesired_Fix_mps
+        driveMsg.drive.steering_angle = angleDesired_Fix_rad
 
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
