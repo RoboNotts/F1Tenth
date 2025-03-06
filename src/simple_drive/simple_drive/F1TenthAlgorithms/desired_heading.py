@@ -30,5 +30,5 @@ def find_desired_heading(
             from the positive x-axis. This will be in the same frame as the
             inputs.
     """
-    return atan2(desiredPositionX_m - currentPositionX_m,
-                 desiredPositionY_m - currentPositionY_m)
+    return atan2(desiredPositionY_m - currentPositionY_m,
+                 desiredPositionX_m - currentPositionX_m)

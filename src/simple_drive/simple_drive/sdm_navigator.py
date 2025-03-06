@@ -23,7 +23,7 @@ class SDM_Navigator(Node):
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.targetPos_Fix_m = [5, 5]  # TODO
+        self.targetPos_Fix_m = [10, 0]  # TODO
 
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
@@ -77,10 +77,10 @@ class SDM_Navigator(Node):
 
         # calculate desired velocity
         velocityDesired_Fix_mps = find_desired_velocity(
-            currentPos_Fix_m[0], currentPos_Fix_m[1],
-            targetPos_Fix_m[0], targetPos_Fix_m[1],
+            targetPos_Fix_m[0], currentPos_Fix_m[0],
+            targetPos_Fix_m[1], currentPos_Fix_m[1],
             10,
-            100
+            10.0
         )
 
         # calculate desired heading angle
@@ -99,6 +99,8 @@ class SDM_Navigator(Node):
         driveMsg = AckermannDriveStamped()
         driveMsg.drive.speed = velocityDesired_Fix_mps
         driveMsg.drive.steering_angle = angleDesired_Fix_rad
+        self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
+                               f'{velocityDesired_Fix_mps}m/s, {angleDesired_Fix_rad}rad')
 
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
