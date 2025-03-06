@@ -4,10 +4,7 @@ from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 
-from F1TenthAlgorithms.desired_heading import *
-from F1TenthAlgorithms.proportional_steering_angle import *
-from F1TenthAlgorithms.desired_steering_angle import *
-from F1TenthAlgorithms.desired_velocity import *
+from F1TenthAlgorithms import *
 
 
 class SDM_Navigator(Node):
