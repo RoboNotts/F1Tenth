@@ -7,15 +7,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from F1TenthAlgorithms.desired_heading import *
 from F1TenthAlgorithms.proportional_steering_angle import *
 from F1TenthAlgorithms.desired_steering_angle import *
-
-
-def desired_velocity(desired_x_position_m,
-                     current_x_position_m,
-                     desired_y_position_m,
-                     current_y_position_m,
-                     time_to_go_s,
-                     maximum_velocity_ms):
-    return  # temporary function while waiting for it to be implemented
+from F1TenthAlgorithms.desired_velocity import *
 
 
 class SDM_Navigator(Node):
@@ -82,7 +74,7 @@ class SDM_Navigator(Node):
         )
 
         # calculate desired velocity
-        velocityDesired_Fix_mps = desired_velocity(
+        velocityDesired_Fix_mps = find_desired_velocity(
             currentPos_Fix_m[0], currentPos_Fix_m[1],
             targetPos_Fix_m[0], targetPos_Fix_m[1],
             10,
