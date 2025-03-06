@@ -1,6 +1,8 @@
 import math
-from desired_steering_angle import find_desired_steering_angle
-from proportional_steering_angle import find_proportional_control_steering_angle
+
+from simple_drive.F1TenthAlgorithms.desired_steering_angle import find_desired_steering_angle
+from simple_drive.F1TenthAlgorithms.proportional_steering_angle import find_proportional_control_steering_angle
+
 
 def find_desired_steering_angle_dynamic(
         desiredHeading_fix_rad: float,
@@ -30,8 +32,10 @@ def find_desired_steering_angle_dynamic(
     error = desiredHeading_fix_rad - currentHeading_fix_rad
 
     if abs(error) <= math.pi/4:
-        steeringAngle_bod_rad = find_proportional_control_steering_angle(desiredHeading_fix_rad, currentHeading_fix_rad, k)
+        steeringAngle_bod_rad = find_proportional_control_steering_angle(
+            desiredHeading_fix_rad, currentHeading_fix_rad, k)
     else:
-        steeringAngle_bod_rad = find_desired_steering_angle(desiredHeading_fix_rad, currentHeading_fix_rad)
+        steeringAngle_bod_rad = find_desired_steering_angle(
+            desiredHeading_fix_rad, currentHeading_fix_rad)
 
     return steeringAngle_bod_rad

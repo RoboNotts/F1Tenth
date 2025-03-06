@@ -4,7 +4,7 @@ from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 
-from F1TenthAlgorithms import *
+from simple_drive.F1TenthAlgorithms import *
 
 
 class SDM_Navigator(Node):
@@ -56,7 +56,12 @@ class SDM_Navigator(Node):
 
         # extract pose position and orientation from odometry message
         posePos_Fix_m = odomMessage.pose.pose.position
-        orientation_Fix_rad = odomMessage.pose.pose.orientation
+        orientation_Fix_rad = (
+            odomMessage.pose.pose.orientation.x,
+            odomMessage.pose.pose.orientation.y,
+            odomMessage.pose.pose.orientation.z,
+            odomMessage.pose.pose.orientation.w
+        )  # using tuple since euler_from_quaternion requires it to be iterable
 
         # get target position
         targetPos_Fix_m = self.targetPos_Fix_m
