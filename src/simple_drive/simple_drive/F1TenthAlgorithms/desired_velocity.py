@@ -1,14 +1,14 @@
 import math
 
-def find_desired_velocity(
-        desiredPositionX_fix_m: float,
-        currentPositionX_fix_m: float,
-        desiredPositionY_fix_m: float,
-        currentPositionY_fix_m: float,
-        timeToGo_s: float,
-        maximumVelocity_mps: float
-    ) -> float:
 
+def find_desired_velocity(
+    desiredPositionX_fix_m: float,
+    currentPositionX_fix_m: float,
+    desiredPositionY_fix_m: float,
+    currentPositionY_fix_m: float,
+    timeToGo_s: float,
+    maximumVelocity_mps: float
+) -> float:
     """
     Calculate the desired velocity to go from the currect position to the
     desired position
@@ -32,17 +32,16 @@ def find_desired_velocity(
         maximumVelocity_mps:
             The vehicles maximum speed
             measured in meters per second
-    
+
     Returns:
         desiredVelocity_mps:
             Velocity needed in meters per second
-
     """
 
     return min(
         (math.sqrt(
-        (desiredPositionX_fix_m - currentPositionX_fix_m)**2 + 
-        (desiredPositionY_fix_m - currentPositionY_fix_m)**2)
-        ) / timeToGo_s,
+            (desiredPositionX_fix_m - currentPositionX_fix_m)**2 +
+            (desiredPositionY_fix_m - currentPositionY_fix_m)**2)
+         ) / timeToGo_s,
         maximumVelocity_mps
     )
