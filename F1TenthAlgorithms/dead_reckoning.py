@@ -5,7 +5,7 @@ from numpy.typing import ArrayLike
 def dead_reckoning(
         position_Fix_m: ArrayLike[float],
         velocity_Fix_mps: ArrayLike[float],
-        changeInTime_s: ArrayLike[float],
+        changeInTime_s: float,
 ) -> ArrayLike[float]:
     """
     Performs simple dead reckoning using Euler's method of integration.
@@ -31,9 +31,6 @@ def dead_reckoning(
 
     # checking velocity_fix_mps
     velocity_Fix_mps = np.array(velocity_Fix_mps)
-
-    # checking changeInTime_s (change in time)
-    changeInTime_s = np.array(changeInTime_s)
 
     # Apply Euler's method: new_position = prev_position + velocity * time
     updatedPosition_Fix_m = position_Fix_m + changeInTime_s * velocity_Fix_mps
