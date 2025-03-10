@@ -5,3 +5,4 @@ TestRuns/**
 Diagrams/**
 **.VSCodeCounter
 **.vscode
+.idea/*
