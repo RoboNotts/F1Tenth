@@ -26,7 +26,8 @@ def dead_reckoning(
     """
 
     # checking input position_fix_m (previous location)
-    position_Fix_m = np.array(position_Fix_m)
+    if type(position_Fix_m) is not np.ndarray:
+        position_Fix_m = np.array(position_Fix_m)
 
     # checking velocity_fix_mps
     velocity_Fix_mps = np.array(velocity_Fix_mps)
