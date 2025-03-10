@@ -11,9 +11,14 @@ def dead_reckoning(
     Performs simple dead reckoning using Euler's method of integration.
 
     Parameters:
-        position_Fix_m: Previous (x, y) location in the fixed coordinate frame (meters).
-        velocity_Fix_mps: Velocity vector (v_x, v_y) in the fixed coordinate frame (meters per second).
-        changeInTime_s: Total time interval for integration (seconds).
+        position_Fix_m:
+            Previous (x, y) location in the fixed coordinate frame (meters).
+
+        velocity_Fix_mps:
+            Velocity vector (v_x, v_y) in the fixed coordinate frame (meters per second).
+
+        changeInTime_s:
+            Total time interval for integration (seconds).
 
     Returns:
         updatedPosition_Fix_m:
