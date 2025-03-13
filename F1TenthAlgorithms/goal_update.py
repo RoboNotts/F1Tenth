@@ -1,7 +1,16 @@
+# Built-in Imports
+# None
+
+# Custom Library Imports
+# None
+
+# ROS Imports
 import rclpy
 from rclpy.node import Node
-
 from geometry_msgs.msg import PoseStamped, Point
+
+# Global Variables
+# None
 
 class GoalUpdater(Node):
     """
@@ -81,7 +90,9 @@ def main(args=None):
 
     rclpy.spin(goal_updater)
 
+    # Destroy the node explicitly
     goal_updater.destroy_node()
+
     rclpy.shutdown()
 
 if __name__ == '__main__':
