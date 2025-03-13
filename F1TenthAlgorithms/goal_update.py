@@ -58,8 +58,7 @@ class GoalUpdater(Node):
 
         Parameters:
             msg (PoseStamped):
-                The received goal pose message.
-                Contains the goal position in `msg.pose.position`.
+                Message containing the position of the goal.
         """
         self.target_update_callback(msg.pose.position)
 
