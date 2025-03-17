@@ -23,7 +23,7 @@ class SDM_Navigator(Node):
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.targetPos_Fix_m = [10, 0]  # TODO
+        self.targetPos_Fix_m = [10.0, 0.0]  # TODO
 
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
@@ -90,7 +90,7 @@ class SDM_Navigator(Node):
         )
 
         # calculate desired steering angle using desired and current headings
-        angleDesired_Fix_rad = find_desired_steering_angle(
+        angleDesired_Fix_rad = find_desired_steering_angle_dynamic(
             headingDesired_Fix_rad,
             currentHeading_Fix_rad
         )
