@@ -1,10 +1,12 @@
+import math
+
+from simple_drive.F1TenthAlgorithms import *
+
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
-
-from simple_drive.F1TenthAlgorithms import *
 
 
 class SDM_Navigator(Node):
@@ -23,7 +25,7 @@ class SDM_Navigator(Node):
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.targetPos_Fix_m = [10.0, 0.0]  # TODO
+        self.targetPos_Fix_m = [-10.0, 0.0]  # TODO
 
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
@@ -43,7 +45,7 @@ class SDM_Navigator(Node):
             10
         )
 
-    def odom_callback(self, odomMessage: Odometry) -> None:
+    def odom_callback(self, msg: Odometry) -> None:
         """
         Callback function for odometry message callback.
 
@@ -55,12 +57,12 @@ class SDM_Navigator(Node):
         """
 
         # extract pose position and orientation from odometry message
-        posePos_Fix_m = odomMessage.pose.pose.position
+        posePos_Fix_m = msg.pose.pose.position
         orientation_Fix_rad = (
-            odomMessage.pose.pose.orientation.x,
-            odomMessage.pose.pose.orientation.y,
-            odomMessage.pose.pose.orientation.z,
-            odomMessage.pose.pose.orientation.w
+            msg.pose.pose.orientation.x,
+            msg.pose.pose.orientation.y,
+            msg.pose.pose.orientation.z,
+            msg.pose.pose.orientation.w
         )  # using tuple since euler_from_quaternion requires it to be iterable
 
         # get target position
@@ -71,7 +73,7 @@ class SDM_Navigator(Node):
         currentPos_Fix_m = [posePos_Fix_m.x, posePos_Fix_m.y]
 
         # get heading (yaw) from orientation quaternion
-        (_, currentHeading_Fix_rad, _) = euler_from_quaternion(
+        (_, _, currentHeading_Fix_rad) = euler_from_quaternion(
             orientation_Fix_rad
         )
 
@@ -88,6 +90,10 @@ class SDM_Navigator(Node):
             currentPos_Fix_m[0], currentPos_Fix_m[1],
             targetPos_Fix_m[0], targetPos_Fix_m[1],
         )
+        if headingDesired_Fix_rad - currentHeading_Fix_rad > math.pi:
+            headingDesired_Fix_rad -= 2 * math.pi
+        elif headingDesired_Fix_rad - currentHeading_Fix_rad < -math.pi:
+            headingDesired_Fix_rad += 2 * math.pi
 
         # calculate desired steering angle using desired and current headings
         angleDesired_Fix_rad = find_desired_steering_angle_dynamic(
@@ -100,7 +106,9 @@ class SDM_Navigator(Node):
         driveMsg.drive.speed = velocityDesired_Fix_mps
         driveMsg.drive.steering_angle = angleDesired_Fix_rad
         self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
-                               f'{velocityDesired_Fix_mps}m/s, {angleDesired_Fix_rad}rad')
+                               f'{velocityDesired_Fix_mps}m/s')
+        self.get_logger().info(f'{currentHeading_Fix_rad} -> {headingDesired_Fix_rad} : '
+                               f'{angleDesired_Fix_rad}rad')
 
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
