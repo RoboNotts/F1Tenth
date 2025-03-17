@@ -48,7 +48,7 @@ class GoalUpdater(Node):
 
         # Subscribe to 'target_pos' (manual goal input)
         self.target_pos_subscription = self.create_subscription(Point,
-                                                                'target_pos',
+                                                                '/target_pos',
                                                                 self.target_update_callback,
                                                                 10)
 
