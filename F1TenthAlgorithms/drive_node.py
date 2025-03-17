@@ -28,11 +28,11 @@ class DriveNode(Node):
 
     def publishDriveCommand(
             self,
-            desiredSteeringAngle_rad: float,
-            desiredAcceleration_mps2: float,
-            desiredSpeed_mps: float = 0.0,
-            desiredSteeringAngleVelocity_radps: Optional[float] = None,
-            desiredJerk_mps3: Optional[float] = None
+            desiredSteeringAngle_bod_rad: float,
+            desiredAcceleration_bod_mps2: float,
+            desiredSpeed_bod_mps: float = 0.0,
+            desiredSteeringAngleVelocity_bod_radps: Optional[float] = None,
+            desiredJerk_bod_mps3: Optional[float] = None
     ) -> None:
         """
         Publish drive commands to the /drive topic.
@@ -67,17 +67,17 @@ class DriveNode(Node):
         driveMsg.header.frame_id = ''
 
         # Set drive parameters
-        driveMsg.drive.steering_angle = desiredSteeringAngle_rad
-        driveMsg.drive.acceleration = desiredAcceleration_mps2
-        driveMsg.drive.speed = desiredSpeed_mps
+        driveMsg.drive.steering_angle = desiredSteeringAngle_bod_rad
+        driveMsg.drive.acceleration = desiredAcceleration_bod_mps2
+        driveMsg.drive.speed = desiredSpeed_bod_mps
 
         # Set steering angle velocity if provided
-        if desiredSteeringAngleVelocity_radps is not None:
-            driveMsg.drive.steering_angle_velocity = desiredSteeringAngleVelocity_radps
+        if desiredSteeringAngleVelocity_bod_radps is not None:
+            driveMsg.drive.steering_angle_velocity = desiredSteeringAngleVelocity_bod_radps
 
         # Set Jerk if provided
-        if desiredJerk_mps3 is not None:
-            driveMsg.drive.jerk = desiredJerk_mps3
+        if desiredJerk_bod_mps3 is not None:
+            driveMsg.drive.jerk = desiredJerk_bod_mps3
 
         # Publish the message
         self.drivePublisher.publish(driveMsg)
