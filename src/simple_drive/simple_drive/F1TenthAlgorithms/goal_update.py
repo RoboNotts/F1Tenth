@@ -41,16 +41,18 @@ class GoalUpdater(Node):
         self.targetPos_Fix_m = []
 
         # Subscribe to 'goal_pose' (automatic goal input)
-        self.goal_pose_subscription = self.create_subscription(PoseStamped,
-                                                               '/goal_pose',
-                                                               self.goal_update_callback,
-                                                               10)
+        self.goal_pose_subscription = self.create_subscription(
+            PoseStamped,
+            '/goal_pose',
+            self.goal_update_callback,
+            10)
 
         # Subscribe to 'target_pos' (manual goal input)
-        self.target_pos_subscription = self.create_subscription(Point,
-                                                                '/target_pos',
-                                                                self.target_update_callback,
-                                                                10)
+        self.target_pos_subscription = self.create_subscription(
+            Point,
+            '/target_pos',
+            self.target_update_callback,
+            10)
 
     def goal_update_callback(self, msg: PoseStamped):
         """
