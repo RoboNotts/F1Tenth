@@ -7,6 +7,7 @@ from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
+from geometry_msgs.msg import PoseStamped, Point
 
 
 class SDM_Navigator(Node):
@@ -44,6 +45,21 @@ class SDM_Navigator(Node):
             '/drive',
             10
         )
+
+        # GOAL UPDATER
+        # Subscribe to 'goal_pose' (automatic goal input)
+        self.goal_pose_subscription = self.create_subscription(
+            PoseStamped,
+            '/goal_pose',
+            self.goal_update_callback,
+            10)
+
+        # Subscribe to 'target_pos' (manual goal input)
+        self.target_pos_subscription = self.create_subscription(
+            Point,
+            '/target_pos',
+            self.target_update_callback,
+            10)
 
     def odom_callback(self, msg: Odometry) -> None:
         """
@@ -112,6 +128,31 @@ class SDM_Navigator(Node):
 
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
+
+    def goal_update_callback(self, msg: PoseStamped):
+        """
+        Callback function for the 'goal_pose' topic.
+
+        Extracts the goal position from the PoseStamped message and adds it to the target list.
+
+        Parameters:
+            msg (PoseStamped):
+                Message containing the position of the goal.
+        """
+        self.target_update_callback(msg.pose.position)
+
+    def target_update_callback(self, msg: Point):
+        """
+        Callback function for the 'target_pos' topic.
+
+        Receives a manually specified goal position and appends it to the target list.
+
+        Parameters:
+            msg (Point):
+                The received manual goal position.
+                Contains x and y coordinates.
+        """
+        self.targetPos_Fix_m.append((msg.x, msg.y))
 
 
 def main(args=None):
