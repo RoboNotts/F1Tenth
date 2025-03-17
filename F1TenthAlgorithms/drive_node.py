@@ -52,6 +52,10 @@ class DriveNode(Node):
                 Desired rate of change of acceleration in meters per second cubed
                 (Optional. Default None, not used if None).
 
+        When published, these commands are sent to the robot's drive controller,
+        which adjusts the steering and moves the robot according to the specified velocity
+        and acceleration parameters.
+
         Returns:
             None
         """
