@@ -81,10 +81,3 @@ class DriveNode(Node):
 
         # Publish the message
         self.drivePublisher.publish(driveMsg)
-        # self.get_logger().info(
-        #     f'Published: steering_angle={desiredSteeringAngle_rad:.2f} rad, '
-        #     f'accel={desiredAcceleration_mps2:.2f} m/s^2, '
-        #     f'speed={desiredSpeed_mps:.2f} m/s, '
-        #     # f'steering_velocity={desiredSteeringAngleVelocity_radps:.2f} m/s, '
-        #     # f'jerk={desiredJerk_mps3:.2f} m/s'
-        # )
