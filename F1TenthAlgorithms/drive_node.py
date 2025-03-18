@@ -64,7 +64,7 @@ class DriveNode(Node):
 
         # Set header with current time
         driveMsg.header.stamp = self.get_clock().now().to_msg()
-        driveMsg.header.frame_id = ''
+        driveMsg.header.frame_id = 'ego_racecar/base_link'
 
         # Set drive parameters
         driveMsg.drive.steering_angle = desiredSteeringAngle_bod_rad
