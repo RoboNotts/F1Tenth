@@ -9,6 +9,10 @@ from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 from geometry_msgs.msg import PoseStamped, Point
 
+# closest Euclidean distance to any given target point's position before moving
+# onto the next target
+CLOSE_THRESHOLD = 1.0
+
 
 class SDM_Navigator(Node):
     """
@@ -18,6 +22,12 @@ class SDM_Navigator(Node):
         /ego_racecar/odom:
             nav_msgs/msg/Odometry
 
+        /goal_pose:
+            geometry_msgs/msg/PoseStamped
+
+        /target_pos:
+            geometry_msgs/msg/Point
+
     Topics published to:
         /drive:
             ackermann_msgs/msg/AckermannDriveStamped
@@ -26,7 +36,8 @@ class SDM_Navigator(Node):
     def __init__(self):
         super().__init__('sdm_navigator')
 
-        self.targetPos_Fix_m = [-10.0, 0.0]  # TODO
+        # list of target positions
+        self.targetPosList_Fix_m = []
 
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
@@ -72,6 +83,15 @@ class SDM_Navigator(Node):
                 The car's odometry message received by the subscription.
         """
 
+        # get target position list
+        targetPosList_Fix_m = self.targetPosList_Fix_m
+
+        if len(targetPosList_Fix_m) == 0:
+            # if there are no target positions left, stop the vehicle
+            driveMsg = AckermannDriveStamped()  # fields initialised to zero
+            self.drivePublisher.publish(driveMsg)
+            return
+
         # extract pose position and orientation from odometry message
         posePos_Fix_m = msg.pose.pose.position
         orientation_Fix_rad = (
@@ -81,12 +101,19 @@ class SDM_Navigator(Node):
             msg.pose.pose.orientation.w
         )  # using tuple since euler_from_quaternion requires it to be iterable
 
-        # get target position
-        targetPos_Fix_m = self.targetPos_Fix_m
-
         # convert pose position into a list for easier readability when used
         # alongside `targetPos_Fix_m`.
         currentPos_Fix_m = [posePos_Fix_m.x, posePos_Fix_m.y]
+
+        # get the next point to go to
+        targetPos_Fix_m = targetPosList_Fix_m[0]
+
+        if math.dist(currentPos_Fix_m, targetPos_Fix_m) < CLOSE_THRESHOLD:
+            # if the next point is within the threshold, pop it and return
+            # dont stop the vehicle so that momentum isnt lost
+            self.get_logger().info(f'Reached point at {targetPos_Fix_m}')
+            targetPosList_Fix_m.pop(0)
+            return
 
         # get heading (yaw) from orientation quaternion
         (_, _, currentHeading_Fix_rad) = euler_from_quaternion(
@@ -152,7 +179,7 @@ class SDM_Navigator(Node):
                 The received manual goal position.
                 Contains x and y coordinates.
         """
-        self.targetPos_Fix_m.append((msg.x, msg.y))
+        self.targetPosList_Fix_m.append((msg.x, msg.y))
 
 
 def main(args=None):
