@@ -1,7 +1,7 @@
 import math
 
-from simple_drive.F1TenthAlgorithms.desired_steering_angle import find_desired_steering_angle
-from simple_drive.F1TenthAlgorithms.proportional_steering_angle import find_proportional_control_steering_angle
+from F1TenthAlgorithms.desired_steering_angle import find_desired_steering_angle
+from F1TenthAlgorithms.proportional_steering_angle import find_proportional_control_steering_angle
 
 
 def find_desired_steering_angle_dynamic(

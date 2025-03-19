@@ -1,6 +1,6 @@
 import math
 
-from simple_drive.F1TenthAlgorithms import *
+from F1TenthAlgorithms import *
 
 import rclpy
 from rclpy.node import Node
