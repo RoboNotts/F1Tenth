@@ -11,7 +11,7 @@ from geometry_msgs.msg import PoseStamped, Point
 
 # closest Euclidean distance to any given target point's position before moving
 # onto the next target
-CLOSE_THRESHOLD = 1.0
+CLOSE_THRESHOLD = 0.5
 
 
 class SDM_Navigator(Node):
@@ -79,7 +79,7 @@ class SDM_Navigator(Node):
         Calculates new driving instructions and publishes them to `/drive`.
 
         Parameters:
-            odomMessage:
+            msg (Odometry):
                 The car's odometry message received by the subscription.
         """
 
@@ -120,12 +120,13 @@ class SDM_Navigator(Node):
             orientation_Fix_rad
         )
 
-        # calculate desired velocity
-        velocityDesired_Fix_mps = find_desired_velocity(
+        # calculate desired speed
+        speedDesired_Fix_mps = find_desired_speed(
             targetPos_Fix_m[0], currentPos_Fix_m[0],
             targetPos_Fix_m[1], currentPos_Fix_m[1],
             10,
-            10.0
+            10.0,
+            0.5
         )
 
         # calculate desired heading angle
@@ -146,10 +147,10 @@ class SDM_Navigator(Node):
 
         # create a drive message using the desired values calculated
         driveMsg = AckermannDriveStamped()
-        driveMsg.drive.speed = velocityDesired_Fix_mps
+        driveMsg.drive.speed = speedDesired_Fix_mps
         driveMsg.drive.steering_angle = angleDesired_Fix_rad
         self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
-                               f'{velocityDesired_Fix_mps}m/s')
+                               f'{speedDesired_Fix_mps}m/s')
         self.get_logger().info(f'{currentHeading_Fix_rad} -> {headingDesired_Fix_rad} : '
                                f'{angleDesired_Fix_rad}rad')
 
