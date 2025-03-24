@@ -16,20 +16,20 @@ CLOSE_THRESHOLD = 0.5
 
 class SDM_Navigator(Node):
     """
-    Simple drive mode navigator.
+    ## Simple drive mode navigator.
 
-    Topics subscribed to:
-        /ego_racecar/odom:
+    ### Topics subscribed to:
+        #### /ego_racecar/odom:
             nav_msgs/msg/Odometry
 
-        /goal_pose:
+        #### /goal_pose:
             geometry_msgs/msg/PoseStamped
 
-        /target_pos:
+        #### /target_pos:
             geometry_msgs/msg/Point
 
-    Topics published to:
-        /drive:
+    ### Topics published to:
+        #### /drive:
             ackermann_msgs/msg/AckermannDriveStamped
     """
 
