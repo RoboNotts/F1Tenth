@@ -152,6 +152,11 @@ class SDM_Navigator(Node):
             currentPos_Fix_m[0], currentPos_Fix_m[1],
             targetPos_Fix_m[0], targetPos_Fix_m[1],
         )
+
+        # Prevent angles from changing from positive to negative and vice versa
+        # while still referring to the same angle (e.g. from pi to -pi).
+        # Not doing this caused the car to zigzag constantly if it was meant to
+        # turn around.
         if headingDesired_Fix_rad - currentHeading_Fix_rad > math.pi:
             headingDesired_Fix_rad -= 2 * math.pi
         elif headingDesired_Fix_rad - currentHeading_Fix_rad < -math.pi:
