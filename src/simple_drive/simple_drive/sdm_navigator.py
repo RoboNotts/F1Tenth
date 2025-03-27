@@ -1,7 +1,10 @@
+# Built in Imports
 import math
 
+# Custom library Imports
 from F1TenthAlgorithms import *
 
+# ROS Imports
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
@@ -9,8 +12,11 @@ from tf_transformations import euler_from_quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 from geometry_msgs.msg import PoseStamped, Point
 
-# closest Euclidean distance to any given target point's position before moving
-# onto the next target
+# Global Variables
+"""
+Closest Euclidean distance to any given target point's position
+before moving onto the next target.
+"""
 CLOSE_THRESHOLD = 0.5
 
 
@@ -157,7 +163,7 @@ class SDM_Navigator(Node):
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
 
-    def goal_update_callback(self, msg: PoseStamped):
+    def goal_update_callback(self, msg: PoseStamped) -> None:
         """
         Callback function for the 'goal_pose' topic.
 
@@ -169,7 +175,7 @@ class SDM_Navigator(Node):
         """
         self.target_update_callback(msg.pose.position)
 
-    def target_update_callback(self, msg: Point):
+    def target_update_callback(self, msg: Point) -> None:
         """
         Callback function for the 'target_pos' topic.
 
