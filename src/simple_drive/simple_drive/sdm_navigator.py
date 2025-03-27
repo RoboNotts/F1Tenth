@@ -19,6 +19,11 @@ before moving onto the next target.
 """
 CLOSE_THRESHOLD = 0.5
 
+"""
+Whether or not to log info about the navigator in the terminal.
+"""
+DEBUG_MODE = False
+
 
 class SDM_Navigator(Node):
     """
@@ -172,10 +177,13 @@ class SDM_Navigator(Node):
         driveMsg = AckermannDriveStamped()
         driveMsg.drive.speed = speedDesired_Fix_mps
         driveMsg.drive.steering_angle = angleDesired_Fix_rad
-        self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
-                               f'{speedDesired_Fix_mps}m/s')
-        self.get_logger().info(f'{currentHeading_Fix_rad} -> {headingDesired_Fix_rad} : '
-                               f'{angleDesired_Fix_rad}rad')
+
+        # Log debugging info if DEBUG_MODE is set to true
+        if DEBUG_MODE:
+            self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
+                                   f'{speedDesired_Fix_mps}m/s')
+            self.get_logger().info(f'{currentHeading_Fix_rad} -> {headingDesired_Fix_rad} : '
+                                   f'{angleDesired_Fix_rad}rad')
 
         # publish the new drive message
         self.drivePublisher.publish(driveMsg)
