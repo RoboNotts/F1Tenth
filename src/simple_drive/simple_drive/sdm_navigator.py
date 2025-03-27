@@ -45,6 +45,8 @@ class SDM_Navigator(Node):
         # list of target positions
         self.targetPosList_Fix_m = []
 
+        ### SUBSCRIBERS ###
+
         # subscription to receive the car's odometry data from the
         # `/ego_racecar/odom` topic
         # calls `odom_callback` function when a value is published
@@ -52,14 +54,6 @@ class SDM_Navigator(Node):
             Odometry,
             '/ego_racecar/odom',
             self.odom_callback,
-            10
-        )
-
-        # create publisher to send driving instructions to the car
-        # via the `/drive` topic
-        self.drivePublisher = self.create_publisher(
-            AckermannDriveStamped,
-            '/drive',
             10
         )
 
@@ -85,6 +79,16 @@ class SDM_Navigator(Node):
             '/target_pos',
             self.target_update_callback,
             10)
+
+        ### PUBLISHERS ###
+
+        # create publisher to send driving instructions to the car
+        # via the `/drive` topic
+        self.drivePublisher = self.create_publisher(
+            AckermannDriveStamped,
+            '/drive',
+            10
+        )
 
     def odom_callback(self, msg: Odometry) -> None:
         """
