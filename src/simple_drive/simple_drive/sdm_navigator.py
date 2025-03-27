@@ -63,8 +63,11 @@ class SDM_Navigator(Node):
             10
         )
 
-        # GOAL UPDATER
+        ## GOAL UPDATING ##
+
         # Subscribe to 'goal_pose' (automatic goal input)
+        #
+        # Published through the F1Tenth simulator in RViz via "2D goal pose".
         self.goal_pose_subscription = self.create_subscription(
             PoseStamped,
             '/goal_pose',
@@ -72,6 +75,11 @@ class SDM_Navigator(Node):
             10)
 
         # Subscribe to 'target_pos' (manual goal input)
+        #
+        # Published through the terminal, with the following command:
+        # `ros2 topic pub /target_pos geometry_msgs/msg/Point '{x: VALUE, y: VALUE}'`.
+        #
+        # Note: the z value will be ignored, so setting it will do nothing.
         self.target_pos_subscription = self.create_subscription(
             Point,
             '/target_pos',
