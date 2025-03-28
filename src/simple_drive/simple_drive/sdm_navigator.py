@@ -143,8 +143,8 @@ class SDM_Navigator(Node):
             orientation_Fix_rad
         )
 
-        # calculate desired speed
-        speedDesired_Fix_mps = find_desired_speed(
+        # calculate desired velocity
+        velocityDesired_Fix_mps = find_desired_velocity(
             targetPos_Fix_m[0], currentPos_Fix_m[0],
             targetPos_Fix_m[1], currentPos_Fix_m[1],
             10,
@@ -175,13 +175,13 @@ class SDM_Navigator(Node):
 
         # create a drive message using the desired values calculated
         driveMsg = AckermannDriveStamped()
-        driveMsg.drive.speed = speedDesired_Fix_mps
+        driveMsg.drive.speed = velocityDesired_Fix_mps
         driveMsg.drive.steering_angle = angleDesired_Fix_rad
 
         # Log debugging info if DEBUG_MODE is set to true
         if DEBUG_MODE:
             self.get_logger().info(f'{currentPos_Fix_m} -> {targetPos_Fix_m} : '
-                                   f'{speedDesired_Fix_mps}m/s')
+                                   f'{velocityDesired_Fix_mps}m/s')
             self.get_logger().info(f'{currentHeading_Fix_rad} -> {headingDesired_Fix_rad} : '
                                    f'{angleDesired_Fix_rad}rad')
 

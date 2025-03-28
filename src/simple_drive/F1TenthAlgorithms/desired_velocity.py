@@ -1,17 +1,17 @@
 import math
 
 
-def find_desired_speed(
+def find_desired_velocity(
     desiredPositionX_Fix_m: float,
     currentPositionX_Fix_m: float,
     desiredPositionY_Fix_m: float,
     currentPositionY_Fix_m: float,
     timeToGo_s: float,
-    maximumSpeed_Fix_mps: float,
-    minimumSpeed_Fix_mps: float
+    maximumVelocity_Fix_mps: float,
+    minimumVelocity_Fix_mps: float
 ) -> float:
     """
-    Calculate the desired speed to go from the currect position to the
+    Calculate the desired velocity to go from the currect position to the
     desired position.
 
     Parameters:
@@ -30,24 +30,24 @@ def find_desired_speed(
         timeToGo_s:
             The time to travel to te desired point
             measured in seconds
-        maximumSpeed_Fix_mps:
-            The vehicles maximum speed
+        maximumVelocity_Fix_mps:
+            The vehicles maximum velocity
             measured in meters per second
-        minimumSpeed_Fix_mps:
-            The vehicles minimum speed
+        minimumVelocity_Fix_mps:
+            The vehicles minimum velocity
             measured in meters per second
 
 
     Returns:
-        desiredspeed_mps:
-            speed needed in meters per second
+        desiredVelocity_mps:
+            Velocity needed in meters per second
     """
 
-    return max(minimumSpeed_Fix_mps,
+    return max(minimumVelocity_Fix_mps,
                min(
                    (math.sqrt(
                        (desiredPositionX_Fix_m - currentPositionX_Fix_m)**2 +
                        (desiredPositionY_Fix_m - currentPositionY_Fix_m)**2)
                     ) / timeToGo_s,
-                   maximumSpeed_Fix_mps)
+                   maximumVelocity_Fix_mps)
                )
