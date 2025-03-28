@@ -5,4 +5,5 @@ TestRuns/**
 Diagrams/**
 **.VSCodeCounter
 **.vscode
+__pycache__/
 .idea/

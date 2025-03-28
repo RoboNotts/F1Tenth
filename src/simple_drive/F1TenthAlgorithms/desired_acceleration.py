@@ -1,9 +1,6 @@
-from numpy.typing import ArrayLike
-
-
 def find_desired_acceleration(
-    currentVelocity_Fix_mps: ArrayLike[float],
-    desiredVelocity_Fix_mps: ArrayLike[float],
+    currentVelocity_Fix_mps: float,
+    desiredVelocity_Fix_mps: float,
     tauTimeConstant_s: float = 1.0
 ) -> float:
     """
@@ -28,7 +25,7 @@ def find_desired_acceleration(
             `desiredVelocity_Fix_mps` in `tauTimeConstant_s` seconds.
     """
 
-    # Find the desiered change in velocity in velocity
+    # Find the desired change in velocity
     velocityDiff_Fix_mps = desiredVelocity_Fix_mps - currentVelocity_Fix_mps
 
     return velocityDiff_Fix_mps / tauTimeConstant_s
